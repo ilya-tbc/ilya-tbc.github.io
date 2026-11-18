@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; width: 100vw; height: 100vh; overflow: hidden; }
+  video { width: 100%; height: 100%; object-fit: contain; display: block; }
+</style>
+</head>
+<body>
+<video autoplay loop muted playsinline id="v">
+  <source src="test.mp4" type="video/mp4">
+</video>
+<script>
+  const v = document.getElementById('v');
+  function goFullscreen() {
+    if (!document.fullscreenElement) {
+      v.requestFullscreen().catch(() => {});
+    }
+  }
+  // Try on load
+  v.addEventListener('canplay', goFullscreen, { once: true });
+  // Fallback: try on first user interaction
+  document.addEventListener('click', goFullscreen, { once: true });
+  document.addEventListener('keydown', goFullscreen, { once: true });
+</script>
+</body>
+</html>
